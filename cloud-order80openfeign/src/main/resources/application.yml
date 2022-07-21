@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: order80
+  profiles:
+    active: dev #默认为开发环境
+  datasource:
+    #type: com.alibaba.druid.pool.DruidDataSource
+    #driver-class-name: org.gjt.mm.mysql.Driver
+    url: jdbc:mysql://localhost:3306/cloud?useUnicode=true&characterEncoding=utf-8
+    username: lc
+    password: love971968504.
+    druid:
+      initial-size: 5 #连接池初始化大小
+      min-idle: 10 #最小空闲连接数
+      max-active: 20 #最大连接数
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+      stat-view-servlet: #访问监控网页的登录用户名和密码
+        login-username: druid
+        login-password: druid
+
+
+server:
+  port: 80
+
+
+mybatis:
+  mapper-locations:
+    #- classpath:com.**.mapper/*.xml
+    - classpath*:com/**/mapper/*.xml
+  type-aliases-package: com.lc.order.entities
+
+eureka:
+  client:
+    service-url:
+      #defaultZone: http://localhost:7001/eureka
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+    fetch-registry: true
+    #从eurekaServer中抓取注册信息，集群必须设置为true才能配合ribbon使用负载均衡
+    register-with-eureka: true
+
+feign:
+  httpclient:
+    ok-http:
+      read-timeout: 1
+
+logging:
+  level:
+    com.lc.payment.service.PaymentService: debug

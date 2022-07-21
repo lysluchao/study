@@ -1,0 +1,17 @@
+server:
+  port: 4555
+
+spring:
+  application:
+    name: dubbo-order-4555
+  main:
+    allow-bean-definition-overriding: true
+
+dubbo:
+  application:
+    name: dubbo-order-4555
+  registry:
+    address: zookeeper://192.168.31.203:2181
+  consumer:
+    application:
+      qosEnable: true

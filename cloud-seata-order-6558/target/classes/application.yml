@@ -1,0 +1,11 @@
+server:
+  port: 6558
+
+spring:
+  application:
+    name: cloud-order-6558
+
+feign:
+  httpclient:
+    ok-http:
+      read-timeout: 1

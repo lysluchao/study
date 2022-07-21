@@ -1,0 +1,22 @@
+server:
+  port: 4666
+
+spring:
+  application:
+    name: dubbo-user
+  main:
+    allow-bean-definition-overriding: true
+
+dubbo:
+  application:
+    name: dubbo-boot-user
+  registry:
+    address: zookeeper://192.168.31.203:2181
+    #protocol: zookeeper
+
+  protocol:
+    name: dubbo
+    port: 20880
+  scan:
+    base-packages:
+      - "com.lc.service"
