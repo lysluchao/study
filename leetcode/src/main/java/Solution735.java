@@ -43,7 +43,9 @@ class Solution735 {
             }
             //看看是否碰撞
             if (weight > Math.abs(asteroids[i])) {
-                asteroids[i] = 0;
+                if (asteroids[i] * asteroids[index] < 0) {
+                    asteroids[i] = 0;
+                }
             } else if (weight < Math.abs(asteroids[i])) {
                 if (asteroids[i] * asteroids[index] < 0) {
                     asteroids[index] = 0;
@@ -63,7 +65,9 @@ class Solution735 {
 
     public static void main(String[] args) {
         Solution735 solution = new Solution735();
-        int[] ints = solution.asteroidCollision(new int[]{5, 10, -5,10,-5,-10,-11,-9});
-        System.out.println(Arrays.toString(ints));
+        int[] ints1 = solution.asteroidCollision(new int[]{5, 10, -5,10,-5,-10,-11,-9});
+        int[] ints2 = solution.asteroidCollision(new int[]{-2,-2,-1,-2});
+        System.out.println(Arrays.toString(ints1));
+        System.out.println(Arrays.toString(ints2));
     }
 }
