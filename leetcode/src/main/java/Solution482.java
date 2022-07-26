@@ -25,13 +25,21 @@ public class Solution482 {
         while (!stack.empty()){
             stringBuilder.append(stack.pop().toString().toUpperCase());
         }
-        return stringBuilder.toString();
+
+
+        String str = stringBuilder.toString();
+        if(str.charAt(0)=='-'){
+            return str.substring(1);
+        }
+
+        return str;
     }
 
     public static void main(String[] args) {
         Solution482 solution482=new Solution482();
         //"5F3Z-2E9W"
         System.out.println(solution482.licenseKeyFormatting("5F3Z-2e-9-w",4));
+        System.out.println(solution482.licenseKeyFormatting("-5F3Z-2e-9-w-1",1));
         //"2-5G-3J"
         System.out.println(solution482.licenseKeyFormatting("2-5g-3-J",2));
     }

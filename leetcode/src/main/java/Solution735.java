@@ -115,16 +115,50 @@ class Solution735 {
         return index;
     }
 
+    private int[] asteroidCollisionL(int[] asteroids) {
+        Deque<Integer> stack = new ArrayDeque<>();
+
+        for (int i = 0; i < asteroids.length; i++) {
+            boolean alive = true;
+            //判断是否存活
+            int c = asteroids[i] > 0 ? 1 : -1;
+            for (int j = i + c; j >= 0 && j < asteroids.length; j = j + c) {
+                if (asteroids[j] * asteroids[i] > 0) {
+                    alive = true;
+                    break;
+                }
+
+                if (Math.abs(asteroids[i]) <= Math.abs(asteroids[j])) {
+                    alive = false;
+                    break;
+                }
+            }
+
+
+            if (alive) {
+                stack.push(asteroids[i]);
+            }
+        }
+
+        int[] ans = new int[stack.size()];
+        for (int i = 0; i < stack.size(); i++) {
+            ans[i] = stack.pollFirst();
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
         Solution735 solution = new Solution735();
         // int[] ints1 = solution.asteroidCollision(new int[]{5, 10, -5, 10, -5, -10, -11, -9});
         //int[] ints2 = solution.asteroidCollision(new int[]{-2, -2, -1, -2});
         //预期结果：
         //[10,1,2,10]
-        int[] ints3 = solution.asteroidCollision(new int[]{10, -8, -9, 1, 8, 8, -9, 1, 2, 10});
+        int[] ints3 = solution.asteroidCollision(new int[]{10, -8, -9, 1,1,1,1,1,1,1,1,1,1,1,1,1, 8, 8, -9, 1, 2, 10});
         //System.out.println(Arrays.toString(ints1));
         //System.out.println(Arrays.toString(ints2));
         System.out.println(Arrays.toString(ints3));
+        int[] ints4 = solution.asteroidCollisionL(new int[]{10, -8, -9, 1, 8, 8, -9, 1, 2, 10});
+        System.out.println(Arrays.toString(ints4));
     }
 
     /**
