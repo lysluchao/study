@@ -28,9 +28,8 @@ class Solution22 {
         }
 
         if (count >= n) {
-            String str = tmp;
-            if (isValidate(str)) {
-                list.add(str);
+            if (isValidate(tmp)) {
+                list.add(tmp);
             }
             return;
         }
