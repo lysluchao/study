@@ -126,6 +126,9 @@ class Solution735 {
                     stack.pop();
                 } else {
                     alive = false;
+                    if (stack.peek() == -asteroid) {
+                        stack.pop();
+                    }
                     break;
                 }
             }
@@ -149,7 +152,7 @@ class Solution735 {
         //int[] ints2 = solution.asteroidCollision(new int[]{-2, -2, -1, -2});
         //预期结果：
         //[10,1,2,10]
-        int[] ints3 = solution.asteroidCollision(new int[]{10, -8, -9, 1,1,1,1,1,1,1,1,1,1,1,1,1, 8, 8, -9, 1, 2, 10});
+        int[] ints3 = solution.asteroidCollision(new int[]{10, -8, -9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8, 8, -9, 1, 2, 10});
         //System.out.println(Arrays.toString(ints1));
         //System.out.println(Arrays.toString(ints2));
         System.out.println(Arrays.toString(ints3));
