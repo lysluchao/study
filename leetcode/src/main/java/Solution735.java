@@ -118,17 +118,13 @@ class Solution735 {
     private int[] asteroidCollisionL(int[] asteroids) {
         Deque<Integer> stack = new ArrayDeque<>();
 
-        for (int i = 0; i < asteroids.length; i++) {
+        for (int asteroid : asteroids) {
             boolean alive = true;
             //判断是否存活
-            int c = asteroids[i] > 0 ? 1 : -1;
-            for (int j = i + c; j >= 0 && j < asteroids.length; j = j + c) {
-                if (asteroids[j] * asteroids[i] > 0) {
-                    alive = true;
-                    break;
-                }
-
-                if (Math.abs(asteroids[i]) <= Math.abs(asteroids[j])) {
+            while (asteroid < 0 && !stack.isEmpty() && stack.peek() > 0) {
+                if (stack.peek() < -asteroid) {
+                    stack.pop();
+                } else {
                     alive = false;
                     break;
                 }
@@ -136,13 +132,13 @@ class Solution735 {
 
 
             if (alive) {
-                stack.push(asteroids[i]);
+                stack.push(asteroid);
             }
         }
 
         int[] ans = new int[stack.size()];
-        for (int i = 0; i < stack.size(); i++) {
-            ans[i] = stack.pollFirst();
+        for (int i = 0; i < ans.length; i++) {
+            ans[i] = stack.pollLast();
         }
         return ans;
     }
