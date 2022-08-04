@@ -106,24 +106,34 @@ class Solution1248 {
         return end;
     }
 
-
     public int numberOfSubarrays(int[] nums, int k) {
-        System.out.println(Arrays.toString(nums));
-        int ans = 0, length = nums.length;
-        for (int i = 0; i < length; i++) {
-            int count = 0;
-            for (int j = i; j < length; j++) {
+        int ans = 0, length = nums.length, nextIndex = 0, count = 0;
+        for (int i = 0; i < nums.length; i++) {
+            //从上次搜索的最后一个奇数后一位开始搜
+            for (int j = nextIndex; j < length; j++) {
                 if (nums[j] % 2 == 1) {
                     count++;
                     if (count == k) {
-                        ans++;
-                        while (j + 1 < length && nums[j + 1] % 2 == 0) {
-                            ans++;
-                            j++;
-                        }
-                        break;
+                        nextIndex = j + 1;
                     }
                 }
+                if (count == k) {
+                    ans++;
+                }
+                if (count > k) {
+                    count--;
+                    break;
+                }
+            }
+            if (nums[i] % 2 == 1) {
+                count--;
+            }
+
+            if (count == k && nums[i] % 2 == 0) {
+                ans++;
+            }
+            if (ans == 0) {
+                return 0;
             }
         }
 
