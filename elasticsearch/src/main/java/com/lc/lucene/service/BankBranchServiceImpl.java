@@ -13,12 +13,14 @@ import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.MMapDirectory;
 import org.apache.lucene.store.RAMDirectory;
 import org.springframework.stereotype.Service;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +34,7 @@ import java.util.Map;
 @Service
 @Slf4j
 public class BankBranchServiceImpl implements BankBranchService {
-    Directory directory = new RAMDirectory();
+    //Directory directory = new RAMDirectory();
     @Resource
     private BankInfoDao bankInfoDao;
 
@@ -42,11 +44,11 @@ public class BankBranchServiceImpl implements BankBranchService {
     @Override
     public void createIndex() throws IOException {
         //指定索引库的存放位置Directory对象
-        //Directory directory = new MMapDirectory(Paths.get("/lucene/"));
+        Directory directory = new MMapDirectory(Paths.get("/lucene/"));
         //指定一个分析器，对文档内容进行分析。
         Analyzer analyzer = new IKAnalyzer(Boolean.TRUE);
         IndexWriterConfig indexWriterConfig = new IndexWriterConfig(analyzer);
-        indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+        indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
 
         try (IndexWriter indexWriter = new IndexWriter(directory, indexWriterConfig)) {
             int count = bankInfoDao.branchCount();
@@ -73,11 +75,11 @@ public class BankBranchServiceImpl implements BankBranchService {
 
     @Override
     public BankBranchEntity query(String bankName) throws IOException, ParseException {
-        log.info("============查询行名{}=====", bankName);
+        log.info("============查询行名:{}=====", bankName);
         IKAnalyzer analyzer = new IKAnalyzer(Boolean.TRUE);
 
         //指定索引库的存放位置Directory对象
-        //Directory directory = new MMapDirectory(Paths.get("/lucene/"));
+        Directory directory = new MMapDirectory(Paths.get("/lucene/"));
         //创建IndexReader对象，需要指定Directory对象
         IndexReader indexReader = DirectoryReader.open(directory);
 

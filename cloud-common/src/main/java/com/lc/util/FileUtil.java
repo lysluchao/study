@@ -1,8 +1,11 @@
-package com.lc.lucene.util;
+package com.lc.util;
 
 import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
+import java.io.IOException;
+
 
 /**
  * @Description: 文件工具类
@@ -10,15 +13,15 @@ import java.io.File;
  * @Date: 2022/8/9 14:05
  * @Version: v1.0
  */
-@Log4j
+@Slf4j
 public class FileUtil {
+
     public static final String RESOURCES_PATH = System.getProperty("user.dir") + "src\\main\\resources";
 
-    public static boolean deleteFile(File file) {
+    public static boolean deleteFile(File file) throws IOException {
         //判断文件不为null或文件目录存在
         if (file == null || !file.exists()) {
-            log.error("文件删除失败, 请检查文件路径是否正确");
-            return false;
+            throw new IOException("文件删除失败, 请检查文件路径是否正确");
         }
         //取得这个目录下的所有子文件对象
         File[] files = file.listFiles();
@@ -39,3 +42,4 @@ public class FileUtil {
         return file.delete();
     }
 }
+

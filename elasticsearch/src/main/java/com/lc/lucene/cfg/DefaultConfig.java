@@ -23,7 +23,6 @@
  */
 package com.lc.lucene.cfg;
 
-import com.lc.lucene.util.YamlPropertySourceFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
