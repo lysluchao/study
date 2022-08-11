@@ -13,7 +13,6 @@ import java.io.IOException;
  * @Date: 2022/8/9 14:05
  * @Version: v1.0
  */
-@Slf4j
 public class FileUtil {
 
     public static final String RESOURCES_PATH = System.getProperty("user.dir") + "src\\main\\resources";
