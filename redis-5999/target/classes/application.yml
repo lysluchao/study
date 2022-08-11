@@ -1,6 +1,0 @@
-server:
-  port: 5999
-
-spring:
-  application:
-    name: redis-5999

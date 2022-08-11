@@ -1,6 +1,0 @@
-server:
-  port: 5369
-
-spring:
-  application:
-    name: shading-jdbc-5369
