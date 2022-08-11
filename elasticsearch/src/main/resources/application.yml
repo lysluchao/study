@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: es
+  profiles:
+      active: dev
   main:
     allow-bean-definition-overriding: true
   datasource:
@@ -26,17 +28,10 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     #log-impl: org.apache.ibatis.logging.log4j.Log4jImpl
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
 
 
-#pagehelper
-pagehelper:
-  helperDialect: oracle
-  reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql
-  returnPageInfo: check
 logging:
   level:
-    com.lc.dao: info
+    com.lc.dao: debug
 

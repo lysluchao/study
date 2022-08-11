@@ -29,5 +29,12 @@ public class BankBranchEntity {
 
     private String bankcode;
 
-
+    @Override
+    public String toString() {
+        return "BankBranchEntity{" +
+                " branchname='" + branchname + '\'' +
+                ", branchcode='" + branchcode + '\'' +
+                ", bankcode='" + bankcode + '\'' +
+                '}';
+    }
 }
