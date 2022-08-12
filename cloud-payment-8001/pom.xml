@@ -58,11 +58,12 @@
     </dependencies>
 
     <build>
-        <finalName>payment-8001</finalName>
+        <finalName>${artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot-version}</version>
                 <configuration>
                     <addResources>true</addResources>
                     <mainClass>com.lc.payment.Payment8001MainApplication</mainClass>

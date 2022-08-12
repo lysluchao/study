@@ -6,3 +6,5 @@
 */target/classes/*
 *.jar
 */target/*
+/*/target/classes/*
+*.lst
