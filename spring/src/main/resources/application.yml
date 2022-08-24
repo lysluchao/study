@@ -1,0 +1,13 @@
+server:
+  port: 9001
+
+
+mybatis:
+  mapper-locations:
+    #- classpath:com.**.mapper/*.xml
+    - classpath*:com/**/mapper/*.xml
+  type-aliases-package: com.lc.spring.entities
+
+spring:
+  profiles:
+    active: dev
