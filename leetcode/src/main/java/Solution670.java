@@ -13,7 +13,7 @@ public class Solution670 {
     short[] bits;
     List<Short> sortedBits = new ArrayList<>();
 
-    public int a(int num) {
+    public int maximumSwap(int num) {
         initBits(num);
 
         //如果遍历的数字是所有位最大的，继续遍历；否则将其与后续位的最大值交换后返回
