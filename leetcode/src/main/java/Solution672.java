@@ -15,11 +15,10 @@ public class Solution672 {
      * 二进制灯，1开0关，序号为从右向左
      */
     int lights;
-    int s1 = 0, s2 = 0, s3 = 0, s4 = 0, n = 0;
+    int s1 = 0, s2 = 0, s3 = 0, s4 = 0;
 
     public int flipLight(int n, int presses) {
         init(n);
-        this.n = n;
         //执行搜索
         return search(presses);
     }
