@@ -1,7 +1,7 @@
 package com.lc.lucene.service;
 
+import com.lc.common.entities.BankBranchEntity;
 import com.lc.lucene.dao.BankInfoDao;
-import com.lc.lucene.model.BankBranchEntity;
 import com.lc.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.lucene.analysis.Analyzer;
@@ -81,6 +81,14 @@ public class BankBranchServiceImpl implements BankBranchService {
         }
     }
 
+    /**
+     * 返回索引中匹配得分最高的银行信息
+     *
+     * @param bankName 行名
+     * @return 匹配得分最高的银行信息
+     * @throws IOException    索引库位置错误
+     * @throws ParseException 行名有误
+     */
     @Override
     public BankBranchEntity query(String bankName) throws IOException, ParseException {
         log.info("============查询行名:{}=====", bankName);
@@ -136,6 +144,11 @@ public class BankBranchServiceImpl implements BankBranchService {
         //关闭indexreader对象
         indexReader.close();
         return bankBranchEntity;
+    }
+
+    @Override
+    public List<BankBranchEntity> expBranches() {
+        return bankInfoDao.expBranches();
     }
 
 }

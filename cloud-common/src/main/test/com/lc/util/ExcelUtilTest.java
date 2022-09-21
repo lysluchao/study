@@ -43,7 +43,7 @@ public class ExcelUtilTest {
     public void createBook() throws IOException {
         HSSFWorkbook workbook = new HSSFWorkbook();
         ExcelUtil.createSheet(workbook, "a");
-        ExcelUtil.createExcelBySuppliedData(workbook, "D://a.xls");
+        ExcelUtil.createExcel(workbook, "D://a.xls");
     }
 
     @Test
@@ -61,7 +61,9 @@ public class ExcelUtilTest {
             bankBranchEntity.setBranchcode("2222");
             bankBranchEntity.setBankcodeunit("3333");
             bankBranchEntity.setEisbnkcode("4444");
-            bankBranchEntities.add(bankBranchEntity);
+            for (int i = 0; i < 1001; i++) {
+                bankBranchEntities.add(bankBranchEntity);
+            }
             return bankBranchEntities;
         }, col, "D://a" + System.currentTimeMillis() + ".xls");
     }

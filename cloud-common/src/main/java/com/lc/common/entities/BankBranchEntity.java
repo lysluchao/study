@@ -1,4 +1,4 @@
-package com.lc.lucene.model;
+package com.lc.common.entities;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

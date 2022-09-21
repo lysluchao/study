@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lc.lucene.dao.BankInfoDao">
-    <resultMap id="BaseResultMap" type="com.lc.lucene.model.BankBranchEntity">
+    <resultMap id="BaseResultMap" type="com.lc.common.entities.BankBranchEntity">
         <result column="BRANCHCODE" property="branchcode" jdbcType="VARCHAR"/>
         <result column="BRANCHNAME" property="branchname" jdbcType="VARCHAR"/>
         <result column="BANKCODE" property="bankcode" jdbcType="VARCHAR"/>
@@ -25,8 +25,16 @@
                     from BEDC_BANKBRANCH
                     order by branchcode
                    ) rlt
-              where rownum  <![CDATA[<=]]>  #{to})
+              where rownum  <![CDATA[<=]]> #{to})
         where rowbegin <![CDATA[>]]> #{from}
+    </select>
+
+    <select id="expBranches" resultMap="BaseResultMap">
+        select *
+        from BEDC_BANKBRANCH
+        where maintainer is null
+          and status = '1'
+        order by branchcode
     </select>
 
 </mapper>

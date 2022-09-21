@@ -23,6 +23,7 @@ import java.util.function.Supplier;
  * @Version: v1.0
  */
 public class ExcelUtil {
+    public static final int DEFAULT_SHEET_MAX_SIZE = 50000;
 
     /**
      * 创建excel文档
@@ -31,7 +32,7 @@ public class ExcelUtil {
      * @param workbook excel文档
      * @throws IOException 路径无效时
      */
-    public static void createExcelBySuppliedData(HSSFWorkbook workbook, String path) throws IOException {
+    public static void createExcel(HSSFWorkbook workbook, String path) throws IOException {
 
         if (StringUtil.isBlank(path)) {
             throw new IllegalArgumentException("路径错误");
@@ -57,7 +58,7 @@ public class ExcelUtil {
      */
     public static <T extends Iterable<?>> void createExcelBySuppliedData(Supplier<T> suppliedData, LinkedHashMap<String, String> sortedCol, String path) throws IOException {
         HSSFWorkbook workbook = createWorkbookBySuppliedData(suppliedData, sortedCol);
-        createExcelBySuppliedData(workbook, path);
+        createExcel(workbook, path);
     }
 
     /**
@@ -98,13 +99,22 @@ public class ExcelUtil {
                 e.printStackTrace();
             }
         }
+
+        while (iterator.hasNext()) {
+            String sheetName = "default" + System.currentTimeMillis();
+            try {
+                createSheet(sheetSize, workbook, iterator, sheetName, sortedCol);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
         return workbook;
     }
 
     public static void createSheet(int sheetSize, HSSFWorkbook workbook, Iterator<?> iterator, String sheetName, LinkedHashMap<String, String> sortedCol) throws IllegalAccessException, InvocationTargetException {
         HSSFSheet sheet = createSheet(workbook, sheetName);
 
-        createHeader(sheet, sortedCol);
+        createHeader(sheet, sortedCol.values());
 
         HashMap<String, Integer> colIndexMap = initCilIndexMap(sortedCol);
 
@@ -161,13 +171,12 @@ public class ExcelUtil {
     /**
      * 创建表头
      *
-     * @param sheet     数据表
-     * @param sortedCol 表头行
+     * @param sheet  数据表
+     * @param values 表头行
      */
-    public static void createHeader(HSSFSheet sheet, LinkedHashMap<String, String> sortedCol) {
+    public static void createHeader(HSSFSheet sheet, Collection<String> values) {
         HSSFRow row = sheet.createRow(0);
 
-        Collection<String> values = sortedCol.values();
         Object[] valuesArray = values.toArray();
         for (int i = 0; i < valuesArray.length; i++) {
             HSSFCell cell = row.createCell(i);
@@ -184,7 +193,7 @@ public class ExcelUtil {
      * @return 创建的workbook
      */
     public static <T extends Iterable<?>> HSSFWorkbook createWorkbookBySuppliedData(Supplier<T> suppliedData, LinkedHashMap<String, String> sortedCol) {
-        return createWorkbookBySuppliedData(suppliedData, new String[]{"default"}, Integer.MAX_VALUE, sortedCol);
+        return createWorkbookBySuppliedData(suppliedData, new String[]{"default"}, DEFAULT_SHEET_MAX_SIZE, sortedCol);
     }
 
 }

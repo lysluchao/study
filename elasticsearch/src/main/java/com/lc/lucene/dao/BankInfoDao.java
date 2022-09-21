@@ -1,6 +1,6 @@
 package com.lc.lucene.dao;
 
-import com.lc.lucene.model.BankBranchEntity;
+import com.lc.common.entities.BankBranchEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,4 +18,6 @@ public interface BankInfoDao {
     int branchCount();
 
     List<BankBranchEntity> loadBankBranchs(Map<String, String> param);
+
+    List<BankBranchEntity> expBranches();
 }
