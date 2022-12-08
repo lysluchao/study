@@ -1,9 +1,7 @@
 package com.lc.util;
 
-import lombok.extern.log4j.Log4j;
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
@@ -39,6 +37,41 @@ public class FileUtil {
         }
         //删除空文件夹 for循环已经把上一层节点的目录清空。
         return file.delete();
+    }
+
+    /**
+     * Delete the files specified by names in absolute file path.
+     *
+     * @param absolutePath    Where deleted files stored.
+     * @param deleteFileNames file's names
+     * @return true if successfully delete specified files
+     */
+    public static boolean deleteFilesInDir(String absolutePath, String... deleteFileNames) throws FileNotFoundException {
+        File baseDir = new File(absolutePath);
+        if (!baseDir.exists()) {
+            throw new FileNotFoundException("File not found in " + absolutePath);
+        }
+
+        File[] files = baseDir.listFiles();
+
+        if (files == null) {
+            return false;
+        }
+        boolean deleteResult = false;
+
+        for (File file : files) {
+            String fileName = file.getName();
+            if (file.isFile()) {
+                for (String deleteFileName : deleteFileNames) {
+                    if (deleteFileName.equals(fileName)) {
+                        deleteResult = file.delete();
+                    }
+                }
+            } else if (file.isDirectory()) {
+                deleteFilesInDir(absolutePath + File.separator + fileName, deleteFileNames);
+            }
+        }
+        return deleteResult;
     }
 }
 
