@@ -1,6 +1,7 @@
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 import com.lc.bedc.model.RequestHead;
+import org.apache.commons.lang.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -30,22 +31,34 @@ public class BedcPostUtil {
         map.put("head", head);
         map.put("body", obj);
 
-        send(map);
+        send(map, null);
     }
 
     public static void send(RequestHead head, Object obj) {
         Map<String, Object> map = new HashMap<>();
         map.put("head", head);
         map.put("body", obj);
-        send(map);
+        send(map, null);
     }
 
-    private static void send(Map<String, Object> map) {
+    public static void send(RequestHead head, Object obj, String ip) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("head", head);
+        map.put("body", obj);
+        send(map, ip);
+    }
+
+    private static void send(Map<String, Object> map, String ip) {
         String s = JSONUtil.toJsonStr(map);
         System.out.println(s);
         final int TIMEOUT_DEFAULT = 100000;
-        final String BEDC_URL = "http://10.0.17.85:9004/bedc/inf.do";
-        String result = HttpUtil.post(BEDC_URL, s, TIMEOUT_DEFAULT);
+        String bedcUrl;
+        if (StringUtils.isNotBlank(ip)) {
+            bedcUrl = "http://" + ip + ":9004/bedc/inf.do";
+        } else {
+            bedcUrl = "http://127.0.0.1:9004/bedc/inf.do";
+        }
+        String result = HttpUtil.post(bedcUrl, s, TIMEOUT_DEFAULT);
         System.out.println(result);
     }
 
