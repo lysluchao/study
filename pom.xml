@@ -29,7 +29,6 @@
         <module>rabbitmq-5691</module>
         <module>sharding-jdbc-5369</module>
         <module>seata</module>
-        <module>cloud-seata-order-6558</module>
         <module>dubbo</module>
         <module>netty</module>
         <module>leetcode</module>

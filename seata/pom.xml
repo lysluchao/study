@@ -11,6 +11,7 @@
     <modules>
         <module>seata-order</module>
         <module>seata-stock</module>
+        <module>seata-common</module>
     </modules>
     <modelVersion>4.0.0</modelVersion>
 
@@ -20,6 +21,16 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.lc</groupId>
+                <artifactId>seata-common</artifactId>
+                <version>${version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
