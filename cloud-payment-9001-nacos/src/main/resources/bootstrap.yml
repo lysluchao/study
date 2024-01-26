@@ -1,4 +1,4 @@
-gtbbbbbspring:
+spring:
   application:
     name: payment-nacos
   cloud:
