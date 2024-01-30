@@ -1,6 +1,21 @@
 spring:
   application:
-    name: seata-order
+    name: seata-stock
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/seata_stock?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        group: SEATA_GROUP
+        namespace: f2cccc94-991b-4604-ae14-675163803f61
+        username:
+        password:
+        cluster-name: default
+  main:
+    allow-circular-references: true
 
 seata:
   enabled: true
@@ -17,6 +32,10 @@ seata:
       application: seata-server
       server-addr: 127.0.0.1:8848
       group: SEATA_GROUP
-      namespace:
+      namespace: f2cccc94-991b-4604-ae14-675163803f61
       username:
       password:
+      cluster: default
+  enable-auto-data-source-proxy: true
+
+
