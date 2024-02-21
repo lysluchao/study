@@ -186,7 +186,6 @@
     </dependencyManagement>
 
     <build>
-        <finalName>总工程</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
