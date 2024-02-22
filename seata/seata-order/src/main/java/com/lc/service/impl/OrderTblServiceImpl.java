@@ -1,7 +1,7 @@
 package com.lc.service.impl;
 
 import com.lc.dao.OrderTblDao;
-import com.lc.entity.OrderTbl;
+import com.lc.OrderTbl;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

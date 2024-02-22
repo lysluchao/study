@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lc.dao.StockTblDao">
 
-    <resultMap type="com.lc.entity.StockTbl" id="StockTblMap">
+    <resultMap type="com.lc.StockTbl" id="StockTblMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="commodityCode" column="commodity_code" jdbcType="VARCHAR"/>
         <result property="count" column="count" jdbcType="INTEGER"/>
@@ -11,7 +11,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="StockTblMap">
         select
-idcommodity_codecount
+            id,commodity_code,count
         from stock_tbl
         where id = #{id}
     </select>
@@ -50,6 +50,12 @@ idcommodity_codecount
                 and count = #{count}
             </if>
         </where>
+    </select>
+    <select id="queryByCommodityCode" resultType="com.lc.StockTbl">
+        select
+            id,commodity_code commodityCode,count
+        from stock_tbl
+        where commodity_code = #{commodityCode}
     </select>
 
     <!--新增所有列-->

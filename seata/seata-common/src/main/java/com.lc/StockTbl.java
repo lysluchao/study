@@ -1,4 +1,4 @@
-package com.lc.entity;
+package com.lc;
 
 import java.io.Serializable;
 

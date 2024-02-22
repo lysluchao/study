@@ -1,6 +1,6 @@
 package com.lc.service;
 
-import com.lc.entity.StockTbl;
+import com.lc.StockTbl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -52,5 +52,11 @@ public interface StockTblService {
      * @return 是否成功
      */
     boolean deleteById(Integer id);
+
+    /**
+     * 根据产品代码查询
+     * @param commodityCode 产品代码
+     */
+    StockTbl queryByCommodityCode(String commodityCode);
 
 }

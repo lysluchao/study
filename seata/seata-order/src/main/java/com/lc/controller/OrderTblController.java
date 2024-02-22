@@ -1,6 +1,8 @@
-package controller;
+package com.lc.controller;
 
-import com.lc.entity.OrderTbl;
+import com.lc.Order;
+import com.lc.OrderTbl;
+import com.lc.service.OrderService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +18,16 @@ import javax.annotation.Resource;
  * @since 2024-01-26 17:05:44
  */
 @RestController
-@RequestMapping("orderTbl")
+@RequestMapping("/orderTbl")
 public class OrderTblController {
     /**
      * 服务对象
      */
     @Resource
     private OrderTblService orderTblService;
+
+    @Resource
+    private OrderService orderService;
 
     /**
      * 分页查询
@@ -78,6 +83,11 @@ public class OrderTblController {
     @DeleteMapping
     public ResponseEntity<Boolean> deleteById(Integer id) {
         return ResponseEntity.ok(this.orderTblService.deleteById(id));
+    }
+
+    @PutMapping("/create/{commodityCode}/{count}")
+    public ResponseEntity<Order> sale(@PathVariable("commodityCode") String commodityCode,@PathVariable("count") int count){
+        return ResponseEntity.ok(this.orderService.create("1",commodityCode,count));
     }
 
 }

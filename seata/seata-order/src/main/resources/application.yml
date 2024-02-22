@@ -1,3 +1,6 @@
+server:
+  port: 6582
+
 spring:
   application:
     name: seata-order
@@ -5,27 +8,43 @@ spring:
     url: jdbc:mysql://host.docker.internal:3306/seata_order?useUnicode=true&characterEncoding=utf-8
     username: root
     password: 123456
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        group: "SEATA_GROUP"
+        namespace: f2cccc94-991b-4604-ae14-675163803f61
+        username:
+        password:
+        cluster-name: default
+  main:
+    allow-circular-references: true
+
+mybatis:
+  mapper-locations:
+    #- classpath:com.**.mapper/*.xml
+    - classpath*:com/**/mapper/*.xml
+    - mapper/*.xml
 
 seata:
   enabled: true
   application-id: ${spring.application.name}
-  tx-service-group: ${spring.application.name}
+  tx-service-group: default_tx_group
   service:
     vgroup-mapping:
-      default: default
+      default_tx_group: default
   config:
     type: file
   registry:
     type: nacos
     nacos:
       application: seata-server
-      server-addr: 127.0.0.1:8848
-      group: SEATA_GROUP
-      namespace:
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      group: "SEATA_GROUP"
+      namespace: f2cccc94-991b-4604-ae14-675163803f61
       username:
       password:
+      cluster: default
+  enable-auto-data-source-proxy: true
 
-mybatis:
-  mapper-locations:
-    #- classpath:com.**.mapper/*.xml
-    - classpath*:com/**/mapper/*.xml
+

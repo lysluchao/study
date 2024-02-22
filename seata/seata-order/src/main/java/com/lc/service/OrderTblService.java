@@ -1,6 +1,6 @@
 package com.lc.service;
 
-import com.lc.entity.OrderTbl;
+import com.lc.OrderTbl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

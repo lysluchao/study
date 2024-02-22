@@ -41,4 +41,10 @@ seata:
       cluster: default
   enable-auto-data-source-proxy: true
 
+mybatis:
+  mapper-locations:
+    #- classpath:com.**.mapper/*.xml
+    - classpath*:com/**/mapper/*.xml
+    - mapper/*.xml
+
 

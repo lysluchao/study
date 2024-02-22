@@ -1,7 +1,7 @@
 package com.lc.service.impl;
 
 import com.lc.dao.StockTblDao;
-import com.lc.entity.StockTbl;
+import com.lc.StockTbl;
 import com.lc.service.StockTblService;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
@@ -78,5 +78,10 @@ public class StockTblServiceImpl implements StockTblService {
     @Override
     public boolean deleteById(Integer id) {
         return this.stockTblDao.deleteById(id) > 0;
+    }
+
+    @Override
+    public StockTbl queryByCommodityCode(String commodityCode) {
+        return this.stockTblDao.queryByCommodityCode(commodityCode);
     }
 }

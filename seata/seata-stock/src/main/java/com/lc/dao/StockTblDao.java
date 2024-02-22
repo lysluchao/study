@@ -1,7 +1,7 @@
 package com.lc.dao;
 
 
-import com.lc.entity.StockTbl;
+import com.lc.StockTbl;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
@@ -82,5 +82,6 @@ public interface StockTblDao {
      */
     int deleteById(Integer id);
 
+    StockTbl queryByCommodityCode(String commodityCode);
 }
 

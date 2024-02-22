@@ -1,6 +1,6 @@
 package com.lc.controller;
 
-import com.lc.entity.StockTbl;
+import com.lc.StockTbl;
 import com.lc.service.StockTblService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Objects;
 
 /**
  * (StockTbl)表控制层
@@ -16,7 +17,7 @@ import javax.annotation.Resource;
  * @since 2024-01-26 17:11:44
  */
 @RestController
-@RequestMapping("stockTbl")
+@RequestMapping("/stockTbl")
 public class StockTblController {
     /**
      * 服务对象
@@ -53,7 +54,7 @@ public class StockTblController {
      * @param stockTbl 实体
      * @return 新增结果
      */
-    @PostMapping
+    @PostMapping("/insert")
     public ResponseEntity<StockTbl> add(StockTbl stockTbl) {
         return ResponseEntity.ok(this.stockTblService.insert(stockTbl));
     }
@@ -64,7 +65,7 @@ public class StockTblController {
      * @param stockTbl 实体
      * @return 编辑结果
      */
-    @PutMapping
+    @PutMapping("/edit")
     public ResponseEntity<StockTbl> edit(StockTbl stockTbl) {
         return ResponseEntity.ok(this.stockTblService.update(stockTbl));
     }
@@ -78,6 +79,22 @@ public class StockTblController {
     @DeleteMapping
     public ResponseEntity<Boolean> deleteById(Integer id) {
         return ResponseEntity.ok(this.stockTblService.deleteById(id));
+    }
+
+    @PutMapping("/sale/{commodityCode}/{count}")
+    public ResponseEntity<Boolean> sale(@PathVariable("commodityCode") String commodityCode,@PathVariable("count") int count){
+        StockTbl stockTbl = this.stockTblService.queryByCommodityCode(commodityCode);
+        if(Objects.isNull(stockTbl)){
+            return ResponseEntity.ok(false);
+        }
+
+        if(stockTbl.getCount() <count){
+            throw new RuntimeException("库存不足");
+        }
+
+        stockTbl.setCount(stockTbl.getCount()-count);
+        this.stockTblService.update(stockTbl);
+        return ResponseEntity.ok(true);
     }
 
 }

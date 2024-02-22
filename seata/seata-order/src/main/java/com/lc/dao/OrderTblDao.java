@@ -1,7 +1,7 @@
 package com.lc.dao;
 
 
-import com.lc.entity.OrderTbl;
+import com.lc.OrderTbl;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
